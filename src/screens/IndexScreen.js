@@ -3,19 +3,25 @@ import { View, Text, StyleSheet, FlatList, Button } from "react-native";
 import BlogContext from "../context/BlogContext";
 
 function IndexScreen() {
-  const {data, addBlogPost } = useContext(BlogContext)
+  const { data, addBlogPost , removeBlogPost , updateBlogPost } = useContext(BlogContext);
   return (
-    <View>
+    <>
       <Text>Index Screen</Text>
       <Button onPress={addBlogPost} title="Add Post" />
       <FlatList
         data={data}
         keyExtractor={(blogPost) => blogPost.title}
         renderItem={({ item }) => {
-          return <Text>{item.title}</Text>;
+          return (
+            <View style={{flexDirection:"row" , alignItems:'center' , backgroundColor:'white', margin:8 , justifyContent:'space-evenly'}}>
+              <Text>{item.title}</Text>
+              <Button title="Remove" onPress={() => removeBlogPost(item.title)}/>
+              <Button title="Update" onPress={() => updateBlogPost(item.title,'updated')}/>
+            </View>
+          );
         }}
       />
-    </View>
+    </>
   );
 }
 
