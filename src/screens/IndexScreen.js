@@ -16,7 +16,6 @@ function IndexScreen() {
             <View style={{flexDirection:"row" , alignItems:'center' , backgroundColor:'white', margin:8 , justifyContent:'space-evenly'}}>
               <Text>{item.title}</Text>
               <Button title="Remove" onPress={() => removeBlogPost(item.title)}/>
-              <Button title="Update" onPress={() => updateBlogPost(item.title,'updated')}/>
             </View>
           );
         }}
