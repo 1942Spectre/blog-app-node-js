@@ -13,16 +13,16 @@ const blogReducer = (state, action) => {
   }
 };
 
-function addBlogPost() {
-  dispatch({ type: "add" });
+function addBlogPost(dispatch) {
+  return () => dispatch({ type: "add" });
 }
 
-function removeBlogPost(title) {
-  dispatch({ type: "delete", payload: title });
+function removeBlogPost(dispatch) {
+  return (title) => dispatch({ type: "delete", payload: title });
 }
 
-function updateBlogPost(title, new_title) {
-  dispatch({
+function updateBlogPost(dispatch) {
+  return (title,new_title) => dispatch({
     type: "update",
     payload: { title: title, new_title: new_title },
   });
