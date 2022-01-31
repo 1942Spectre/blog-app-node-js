@@ -101,7 +101,7 @@ function IndexScreen({ navigation }) {
       </View>
 
       <TouchableOpacity
-        onPress={addBlogPost}
+        onPress={() => navigation.navigate('Create')}
         style={{
           backgroundColor: "#ef4135",
           alignItems: "center",
