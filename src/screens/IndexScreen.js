@@ -1,25 +1,117 @@
 import React, { useContext } from "react";
-import { View, Text, StyleSheet, FlatList, Button } from "react-native";
-import {Context as BlogContext} from "../context/BlogContext";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  Button,
+  TouchableOpacity,
+} from "react-native";
+import { Context as BlogContext } from "../context/BlogContext";
+import { Ionicons } from "@expo/vector-icons";
 
-function IndexScreen() {
-  const { state, addBlogPost , removeBlogPost , updateBlogPost } = useContext(BlogContext);
+function IndexScreen({ navigation }) {
+  const { state, addBlogPost, removeBlogPost, updateBlogPost } =
+    useContext(BlogContext);
   return (
     <>
-      <Text>Index Screen</Text>
-      <Button onPress={addBlogPost} title="Add Post" />
-      <FlatList
-        data={state}
-        keyExtractor={(blogPost) => blogPost.title}
-        renderItem={({ item }) => {
-          return (
-            <View style={{flexDirection:"row" , alignItems:'center' , backgroundColor:'white', margin:8 , justifyContent:'space-evenly'}}>
-              <Text>{item.title}</Text>
-              <Button title="Remove" onPress={() => removeBlogPost(item.title)}/>
-            </View>
-          );
+      <View style={{ flex: 1, backgroundColor: "#ffffff" }}>
+        <FlatList
+          data={state}
+          keyExtractor={(blogPost) => blogPost.id}
+          renderItem={({ item }) => {
+            return (
+              <TouchableOpacity onPress={navigation.navigate(Show)}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    backgroundColor: "#dfe3ee",
+                    borderRadius: 15,
+                    borderWidth: 1,
+                    borderColor: "#0055a4",
+                    marginVertical: 15,
+                    marginHorizontal: 30,
+                    justifyContent: "space-between",
+                    height: 100,
+                    overflow: "hidden",
+                  }}
+                >
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      width: "60%",
+                    }}
+                  >
+                    <Ionicons name="reader-outline" size={24} color="#0055a4" />
+                    <Text style={{ color: "#0055a4" }}>
+                      {item.title} , {item.id}
+                    </Text>
+                  </View>
+
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-evenly",
+                      width: "30%",
+                      alignItems: "center",
+                      height: "60%",
+                    }}
+                  >
+                    <TouchableOpacity
+                      style={{
+                        backgroundColor: "#0055a4",
+                        height: "95%",
+                        width: "40%",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Ionicons
+                        name="pencil-outline"
+                        size={24}
+                        color="#ffffff"
+                      />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                      onPress={() => removeBlogPost(item.title)}
+                      style={{
+                        backgroundColor: "#0055a4",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        width: "40%",
+                        height: "95%",
+                      }}
+                    >
+                      <Ionicons
+                        name="trash-outline"
+                        size={24}
+                        color="#ffffff"
+                      />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            );
+          }}
+        />
+      </View>
+
+      <TouchableOpacity
+        onPress={addBlogPost}
+        style={{
+          backgroundColor: "#ef4135",
+          alignItems: "center",
+          position: "absolute",
+          bottom: 0,
+          width: "100%",
         }}
-      />
+      >
+        <Ionicons name="add-circle-outline" size={50} color="#fff" />
+      </TouchableOpacity>
     </>
   );
 }

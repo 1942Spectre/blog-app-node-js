@@ -1,14 +1,16 @@
 import createDataContext from "./createDataContext";
 
+var id = 0
 const blogReducer = (state, action) => {
   switch (action.type) {
     case "add":
-      return [...state, { title: `Blog Post #${state.length + 1}` }];
+      id = id+1
+      return [...state, { id:id , title: `Blog Post #${state.length + 1}`} ]
     case "delete":
-      return [...state].filter((item) => item.title != action.payload);
+      return state.filter((item) => item.id != action.payload);
     case "update":
       return [...state, { title: action.payload.new_title }].filter(
-        (item) => item.title != action.payload.title
+        (item) => item.id != action.payload.id
       );
   }
 };
@@ -18,13 +20,13 @@ function addBlogPost(dispatch) {
 }
 
 function removeBlogPost(dispatch) {
-  return (title) => dispatch({ type: "delete", payload: title });
+  return (id) => dispatch({ type: "delete", payload: id });
 }
 
 function updateBlogPost(dispatch) {
-  return (title,new_title) => dispatch({
+  return (id,title) => dispatch({
     type: "update",
-    payload: { title: title, new_title: new_title },
+    payload: { id: id, new_title: title },
   });
 }
 
