@@ -5,9 +5,6 @@ import { Provider } from "./src/context/BlogContext";
 import ShowScreen from "./src/screens/ShowScreen";
 import IndexScreen from "./src/screens/IndexScreen";
 
-
-import IndexScreen from "./src/screens/IndexScreen";
-
 const navigator = createStackNavigator({
   Index: IndexScreen,
   Show: ShowScreen
@@ -19,7 +16,6 @@ const navigator = createStackNavigator({
       title: 'Blogs',
       headerStyle: {
         backgroundColor: '#c1121f',
-        marginBottom:0,
       },
       headerTitleStyle:{
         color:"#fff"

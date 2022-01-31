@@ -21,7 +21,7 @@ function IndexScreen({ navigation }) {
           keyExtractor={(blogPost) => blogPost.id}
           renderItem={({ item }) => {
             return (
-              <TouchableOpacity onPress={navigation.navigate(Show)}>
+              <TouchableOpacity onPress={() => navigation.navigate("Show",{id:item.id})}>
                 <View
                   style={{
                     flexDirection: "row",
@@ -106,8 +106,8 @@ function IndexScreen({ navigation }) {
           backgroundColor: "#ef4135",
           alignItems: "center",
           position: "absolute",
-          bottom: 0,
           width: "100%",
+          bottom: 0
         }}
       >
         <Ionicons name="add-circle-outline" size={50} color="#fff" />
