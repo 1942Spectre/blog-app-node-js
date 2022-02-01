@@ -21,7 +21,9 @@ function IndexScreen({ navigation }) {
           keyExtractor={(blogPost) => blogPost.id}
           renderItem={({ item }) => {
             return (
-              <TouchableOpacity onPress={() => navigation.navigate("Show",{id:item.id})}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Show", { id: item.id })}
+              >
                 <View
                   style={{
                     flexDirection: "row",
@@ -99,28 +101,21 @@ function IndexScreen({ navigation }) {
           }}
         />
       </View>
-
-
     </>
   );
 }
 
-IndexScreen.navigationOptions = () =>{
-  return{
-    headerRight:     <TouchableOpacity
-    onPress={() => navigation.navigate('Create')}
-    style={{
-      backgroundColor: "#ef4135",
-      alignItems: "center",
-      position: "absolute",
-      width: "100%",
-      bottom: 0
-    }}
-  >
-  <Ionicons name="add-circle-outline" size={30} color="#fff" />
-  </TouchableOpacity>
-  }
-}
+IndexScreen.navigationOptions = ({ navigation }) => {
+  return {
+    headerRight: () => {
+      return (
+        <TouchableOpacity onPress={() => navigation.navigate("Create")}>
+          <Ionicons name="add-circle-outline" size={30} color="#fff" />
+        </TouchableOpacity>
+      );
+    },
+  };
+};
 
 const styles = StyleSheet.create({});
 
