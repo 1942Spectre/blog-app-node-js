@@ -1,26 +1,32 @@
-import React,{ useState } from "react";
-import { View, StyleSheet, Text, TextInput } from "react-native";
-import { Button } from "react-native-web";
+import React, { useState, useContext } from "react";
+import { View, StyleSheet, Text, TextInput, Button } from "react-native";
 import { Context, Provider } from "../context/BlogContext";
 
 function CreateScreen() {
-
-    const [title,setTitle] = useState('')
-    const [content,setContent] = useState('')
-
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const { addBlogPost } = useContext(Context);
 
   return (
     <View style={{ flex: 1, alignItems: "center" }}>
       <Text>Create Blog Post</Text>
-        <Text>Title</Text>
-        <TextInput value={title} onChangeText={(text) => setTitle(text)} style={styles.titleInput} />
+      <Text>Title</Text>
+      <TextInput
+        value={title}
+        onChangeText={(text) => setTitle(text)}
+        style={styles.titleInput}
+      />
+      <Text>Content</Text>
+      <TextInput
+        value={content}
+        onChangeText={(text) => setContent(text)}
+        style={styles.contentInput}
+      />
 
-      <View style={styles.contentInput}>
-        <Text>Content</Text>
-        <TextInput value={content} onChangeText={(text) => setContent(text)} style={{ height: 160 }}/>
-      </View>
-
-      <Button title='Add Blog Post'/>
+      <Button
+        title="Add Blog Post"
+        onPress={() => addBlogPost(title, content)}
+      />
     </View>
   );
 }
@@ -29,7 +35,7 @@ const styles = StyleSheet.create({
   titleInput: {
     backgroundColor: "#dfe3ee",
     borderColor: "black",
-    borderWidth:3,
+    borderWidth: 3,
     height: 40,
     width: "80%",
     marginVertical: 50,
@@ -40,7 +46,7 @@ const styles = StyleSheet.create({
     height: 160,
     backgroundColor: "#dfe3ee",
     borderColor: "black",
-    borderWidth:3,
+    borderWidth: 3,
   },
 });
 
