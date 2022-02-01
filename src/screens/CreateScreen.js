@@ -1,20 +1,26 @@
-import React from "react";
+import React,{ useState } from "react";
 import { View, StyleSheet, Text, TextInput } from "react-native";
+import { Button } from "react-native-web";
 import { Context, Provider } from "../context/BlogContext";
 
 function CreateScreen() {
+
+    const [title,setTitle] = useState('')
+    const [content,setContent] = useState('')
+
+
   return (
     <View style={{ flex: 1, alignItems: "center" }}>
       <Text>Create Blog Post</Text>
-      <View style={styles.titleInput}>
         <Text>Title</Text>
-        <TextInput style={{ textAlign: "center" }} />
-      </View>
+        <TextInput value={title} onChangeText={(text) => setTitle(text)} style={styles.titleInput} />
 
       <View style={styles.contentInput}>
         <Text>Content</Text>
-        <TextInput style={{ height: 160 }}/>
+        <TextInput value={content} onChangeText={(text) => setContent(text)} style={{ height: 160 }}/>
       </View>
+
+      <Button title='Add Blog Post'/>
     </View>
   );
 }
@@ -22,6 +28,8 @@ function CreateScreen() {
 const styles = StyleSheet.create({
   titleInput: {
     backgroundColor: "#dfe3ee",
+    borderColor: "black",
+    borderWidth:3,
     height: 40,
     width: "80%",
     marginVertical: 50,
@@ -31,6 +39,8 @@ const styles = StyleSheet.create({
     width: "80%",
     height: 160,
     backgroundColor: "#dfe3ee",
+    borderColor: "black",
+    borderWidth:3,
   },
 });
 
