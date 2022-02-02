@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   View,
   Text,
@@ -11,8 +11,16 @@ import { Context as BlogContext } from "../context/BlogContext";
 import { Ionicons } from "@expo/vector-icons";
 
 function IndexScreen({ navigation }) {
-  const { state, addBlogPost, removeBlogPost, updateBlogPost } =
+  const { state, addBlogPost, removeBlogPost, updateBlogPost, getBlogPosts } =
     useContext(BlogContext);
+
+  useEffect(() => {
+    getBlogPosts();
+    const listener = navigation.addListener("didFocus", () => getBlogPosts());
+    return () => {
+      listener.remove();
+    }
+  }, []);
   return (
     <>
       <View style={{ flex: 1, backgroundColor: "#ffffff" }}>
@@ -63,7 +71,9 @@ function IndexScreen({ navigation }) {
                     }}
                   >
                     <TouchableOpacity
-                    onPress={() => navigation.navigate("Edit",{postID:item.id})}
+                      onPress={() =>
+                        navigation.navigate("Edit", { postID: item.id })
+                      }
                       style={{
                         backgroundColor: "#0055a4",
                         height: "95%",
@@ -80,7 +90,7 @@ function IndexScreen({ navigation }) {
                     </TouchableOpacity>
 
                     <TouchableOpacity
-                      onPress={() => removeBlogPost(item.title)}
+                      onPress={() => removeBlogPost(item.id)}
                       style={{
                         backgroundColor: "#0055a4",
                         justifyContent: "center",

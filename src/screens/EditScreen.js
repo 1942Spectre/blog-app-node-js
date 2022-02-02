@@ -5,16 +5,13 @@ import BlogPostForm from "../components/BlogPostForm";
 
 function EditScreen({ navigation }) {
   const { state } = useContext(Context);
-  var post = state.find(
-    item => item.id === navigation.getParam("postID")
-  );
+  const postID = navigation.getParam("postID");
+  const post = state.find((item) => item.id == postID);
+
   const { updateBlogPost } = useContext(Context);
 
   // Error Below, variable post somehow contains two undefined variables alongside the post object
   console.log(post);
-  console.log(post);
-  console.log(post);
-  
 
   return (
     <>
@@ -26,7 +23,7 @@ function EditScreen({ navigation }) {
         }}
         onSubmit={(title, content) => {
           navigation.navigate("Index");
-          updateBlogPost(navigation.getParam("postID", title, content));
+          updateBlogPost(post.id,title, content);
         }}
       />
     </>
