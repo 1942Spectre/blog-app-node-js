@@ -63,6 +63,7 @@ function IndexScreen({ navigation }) {
                     }}
                   >
                     <TouchableOpacity
+                    onPress={() => navigation.navigate("Edit",{postID:item.id})}
                       style={{
                         backgroundColor: "#0055a4",
                         height: "95%",
