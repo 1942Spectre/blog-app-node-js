@@ -22,7 +22,7 @@ function IndexScreen({ navigation }) {
           renderItem={({ item }) => {
             return (
               <TouchableOpacity
-                onPress={() => navigation.navigate("Show", { id: item.id })}
+                onPress={() => navigation.navigate("Show", { postID: item.id })}
               >
                 <View
                   style={{

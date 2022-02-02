@@ -1,58 +1,36 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { View, StyleSheet, Text, TextInput, Button } from "react-native";
-import { Context, Provider } from "../context/BlogContext";
+import { Context } from "../context/BlogContext";
+import BlogPostForm from "../components/BlogPostForm";
 
-function EditScreen({navigation}) {
-  const postID = navigation.getParam('postID')
-  const {state} = useContext(Context)
-  const post = state.find((item) => item.id == postID)
-  const [title, setTitle] = useState(post.title);
-  const [content, setContent] = useState(post.content);
+function EditScreen({ navigation }) {
+  const { state } = useContext(Context);
+  var post = state.find(
+    item => item.id === navigation.getParam("postID")
+  );
   const { updateBlogPost } = useContext(Context);
 
-  return (
-    <View style={{ flex: 1, alignItems: "center" }}>
-      <Text>Edit Blog Post</Text>
-      <Text>Title</Text>
-      <TextInput
-        value={title}
-        onChangeText={(text) => setTitle(text)}
-        style={styles.titleInput}
-      />
-      <Text>Content</Text>
-      <TextInput
-        value={content}
-        onChangeText={(text) => setContent(text)}
-        style={styles.contentInput}
-      />
+  // Error Below, variable post somehow contains two undefined variables alongside the post object
+  console.log(post);
+  console.log(post);
+  console.log(post);
+  
 
-      <Button
-        title="Finish Editing"
-        onPress={() =>{
-          navigation.navigate('Index');
-          updateBlogPost(postID , title, content)}}
+  return (
+    <>
+      <BlogPostForm
+        initialValues={{
+          id: post.id,
+          title: post.title,
+          content: post.content,
+        }}
+        onSubmit={(title, content) => {
+          navigation.navigate("Index");
+          updateBlogPost(navigation.getParam("postID", title, content));
+        }}
       />
-    </View>
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-  titleInput: {
-    backgroundColor: "#dfe3ee",
-    borderColor: "black",
-    borderWidth: 3,
-    height: 40,
-    width: "80%",
-    marginVertical: 50,
-    flexDirection: "column",
-  },
-  contentInput: {
-    width: "80%",
-    height: 160,
-    backgroundColor: "#dfe3ee",
-    borderColor: "black",
-    borderWidth: 3,
-  },
-});
 
 export default EditScreen;

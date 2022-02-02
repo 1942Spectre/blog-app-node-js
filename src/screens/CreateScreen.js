@@ -1,56 +1,22 @@
-import React, { useState, useContext } from "react";
+import React, {useContext} from "react";
 import { View, StyleSheet, Text, TextInput, Button } from "react-native";
-import { NavigationContext } from "react-navigation";
-import { Context, Provider } from "../context/BlogContext";
+import { Context } from "../context/BlogContext";
+import BlogPostForm from "../components/BlogPostForm";
 
-function CreateScreen({navigation}) {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+function CreateScreen({ navigation }) {
   const { addBlogPost } = useContext(Context);
 
   return (
-    <View style={{ flex: 1, alignItems: "center" }}>
-      <Text>Create Blog Post</Text>
-      <Text>Title</Text>
-      <TextInput
-        value={title}
-        onChangeText={(text) => setTitle(text)}
-        style={styles.titleInput}
+    <>
+      <BlogPostForm
+        initialValues={{ id: null, title: "", content: "" }}
+        onSubmit={(title, content) => {
+          navigation.navigate("Index");
+          addBlogPost(title, content);
+        }}
       />
-      <Text>Content</Text>
-      <TextInput
-        value={content}
-        onChangeText={(text) => setContent(text)}
-        style={styles.contentInput}
-      />
-
-      <Button
-        title="Add Blog Post"
-        onPress={() => {
-          navigation.navigate('Index');
-          addBlogPost(title, content)}}
-      />
-    </View>
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-  titleInput: {
-    backgroundColor: "#dfe3ee",
-    borderColor: "black",
-    borderWidth: 3,
-    height: 40,
-    width: "80%",
-    marginVertical: 50,
-    flexDirection: "column",
-  },
-  contentInput: {
-    width: "80%",
-    height: 160,
-    backgroundColor: "#dfe3ee",
-    borderColor: "black",
-    borderWidth: 3,
-  },
-});
 
 export default CreateScreen;
